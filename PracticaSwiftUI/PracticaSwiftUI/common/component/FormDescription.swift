@@ -1,0 +1,52 @@
+//
+//  FormDescription.swift
+//  PracticaSwiftUI
+//
+//  Created by Juan Manuel Jimenez Alfaro on 8/6/23.
+//
+
+import SwiftUI
+
+struct FormDescription<Label: View>: View {
+    let title: String
+    var label: () -> Label
+    
+    
+    init(title: String, @ViewBuilder label: @escaping () -> Label) {
+        self.title = title
+        self.label = label
+    }
+    
+    var body: some View {
+        
+        VStack(alignment: .leading, spacing: 7) {
+            Text(title.uppercased())
+                .font(.openSemiBold(size: 10))
+                .foregroundColor(.black.opacity(0.56))
+            label()
+                .frame(height: 120)
+                .background {
+                    Color.whiteCustom
+                        .shadow(color: .black.opacity(0.1), radius: 5, x: 0, y: 3)
+                }
+        }
+    }
+}
+
+
+struct FormDescription_Previews: PreviewProvider {
+    static var previews: some View {
+        VStack {
+            FormDescription(title: "nombre") {
+                TextFieldDescription(textFieldValue: .constant(""), placeholder: "placeholder", color: .whiteCustom, colorPlaceholder: .black.opacity(0.58), colorText: .black)
+            }
+            FormDescription(title: "apellidos") {
+                TextFieldDescription(textFieldValue: .constant("hola"), placeholder: "placeholder", color: .whiteCustom, colorPlaceholder: .black.opacity(0.58), colorText: .black)
+            }
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .padding()
+        .background(Color.marine.opacity(0.02))
+    }
+    
+}
